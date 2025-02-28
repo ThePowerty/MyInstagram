@@ -1,18 +1,39 @@
-<header>
+<header class="p-3 bg-dark text-white">
   <div class="container">
-    <h1>InstaConquer</h1>
-    <nav>
-      <ul>
-        <li><a href="{% url 'home' %}">Inicio</a></li>
-        {% if not request.user.is_authenticated %}
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'register' %}">Registro</a></li>
-        {% endif %}
-        <li><a href="{% url 'contact' %}">Contacto</a></li>
-        {% if request.user.is_authenticated %}
-          <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
-        {% endif %}
-      </ul>
-    </nav>
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <h1 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white">InstaConquer</h1>
+      <nav>
+        <ul class="nav nav-pills">
+          {% url 'home' as home_url %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Inicio</a>
+          </li>
+          {% url 'contact' as contact_url %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="{{ contact_url }}">Contacto</a>
+          </li>
+          {% if not request.user.is_authenticated %}
+            {% url 'login' as login_url %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == login_url %}active{% endif %}" href="{{ login_url }}">Login</a>
+            </li>
+            {% url 'register' as register_url %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == register_url %}active{% endif %}" href="{{ register_url }}">Registro</a>
+            </li>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+            {% url 'profile_detail' request.user.profile.pk as profile_url %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == profile_url %}active{% endif %}" href="{{ profile_url }}">Mi perfil</a>
+            </li>
+            {% url 'logout' as logout_url %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{{ logout_url }}">Cerrar sesión</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
