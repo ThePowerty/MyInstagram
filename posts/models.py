@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.timesince import timesince
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name='Usuario')
@@ -12,6 +12,9 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+
+    def time_since_created(self):
+        return "Hace " + timesince(self.created_at) + "."
 
     def __str__(self):
         return f"{self.user.username} - {self.created_at}"

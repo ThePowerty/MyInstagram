@@ -23,6 +23,10 @@
             </li>
           {% endif %}
           {% if request.user.is_authenticated %}
+            {% url 'post_create' as post_url %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == post_url %}active{% endif %}" href="{{ post_url }}">Publicar</a>
+            </li>
             {% url 'profile_detail' request.user.profile.pk as profile_url %}
             <li class="nav-item">
               <a class="nav-link {% if request.path == profile_url %}active{% endif %}" href="{{ profile_url }}">Mi perfil</a>

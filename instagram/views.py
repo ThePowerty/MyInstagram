@@ -1,10 +1,10 @@
-
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic.edit import FormView
+from django.utils.decorators import method_decorator
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
@@ -13,10 +13,19 @@ from .forms import RegistrationForm, LoginForm
 from django.views.generic import DetailView
 from profiles.models import UserProfile
 from django.views.generic.edit import UpdateView
+from posts.models import Post
 
 
 class HomeView(TemplateView):
     template_name = "general/home.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        last_posts = Post.objects.all().order_by('-created_at')[:5]
+
+        context['last_posts'] = last_posts
+
+        return context
 
 
 class LoginView(FormView):
@@ -57,15 +66,17 @@ class ContactView(TemplateView):
     template_name = "general/contact.html"
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileDetailView(DetailView):
     model = UserProfile
-    template_name = "general/profile_detail.html"
+    template_name = "profile/profile_detail.html"
     context_object_name = "profile"
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileUpdateView(UpdateView):
     model = UserProfile
-    template_name = "general/profile_update.html"
+    template_name = "profile/profile_update.html"
     context_object_name = "profile"
     fields = ['profile_picture', 'bio', 'birth_date']
     def form_valid(self, form):

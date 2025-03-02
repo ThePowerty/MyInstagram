@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import HomeView, LoginView, LegalView, RegisterView, ContactView, logout_view, ProfileDetailView, ProfileUpdateView
+from posts.views import PostCreateView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -12,6 +13,7 @@ urlpatterns = [
     path('contact/', ContactView.as_view(), name='contact'),
     path('profile/<pk>/', ProfileDetailView.as_view(), name='profile_detail'),
     path('profile/update/<pk>/', ProfileUpdateView.as_view(), name='profile_update'),
+    path('posts/create/', PostCreateView.as_view(), name="post_create"),
     path('legal/', LegalView.as_view(), name='legal'),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
