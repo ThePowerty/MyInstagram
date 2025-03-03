@@ -8,6 +8,10 @@
           <li class="nav-item">
             <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Inicio</a>
           </li>
+          {% url 'profile_list' as profiles_url %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == profiles_url %}active{% endif %}" href="{{ profiles_url }}">Perfiles</a>
+          </li>
           {% url 'contact' as contact_url %}
           <li class="nav-item">
             <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="{{ contact_url }}">Contacto</a>
