@@ -18,8 +18,8 @@
     </p>
   </div>
   <div class="ms-3 mb-2">
-    <span>{{ post.likes.all.count }} Me gusta</span> 
-    <a href="{% url 'post_like' post.pk %}">
+    <a href="{% url 'post_like' post.pk %}" class="likeButton">
+      <span>{{ post.likes.all.count }}</span>
       {% if request.user in post.likes.all %}
         <i class="bi bi-suit-heart-fill"></i>
       {% else %}

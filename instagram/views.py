@@ -72,7 +72,7 @@ class LegalView(TemplateView):
 class ContactView(TemplateView):
     template_name = "general/contact.html"
 
-
+@method_decorator(login_required, name='dispatch')
 class ProfileDetailView(DetailView, FormView):
     model = UserProfile
     template_name = "profile/profile_detail.html"

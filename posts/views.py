@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CommentCreateForm
 from .forms import PostCreateForm
 
-
+from django.http import JsonResponse
 
 @method_decorator(login_required, name='dispatch')
 class PostCreateView(CreateView):
@@ -39,15 +39,27 @@ class PostDetailView(DetailView, CreateView):
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS, "Comentario añadido correctamente.")
         return reverse('post_detail', args=[self.get_object().pk])
-    
+
+
 @login_required
-def like_post(request, pk):
+def like_post_ajax(request, pk):
     post = Post.objects.get(pk=pk)
     if request.user in post.likes.all():
-        messages.add_message(request, messages.INFO, "Ya no te gusta esta publicación.")
-        post.likes.remove(request.user)
+        request.user.profile.unlike_post(post)
+        return JsonResponse(
+          {
+              'message': 'Ya no te gusta esta publicación.',
+              'liked': False,
+              'nlikes': post.likes.all().count()
+            }
+        )
     else:
-        post.likes.add(request.user)
-        messages.add_message(request, messages.INFO, "Te gusta esta publicación.")
-
-    return HttpResponseRedirect(reverse('post_detail', args=[pk]))
+        # post.like(request.user)
+        request.user.profile.like_post(post)
+        return JsonResponse(
+          {
+              'message': 'Te gusta esta publicación.',
+              'liked': True,
+              'nlikes': post.likes.all().count()
+            }
+        )

@@ -18,6 +18,12 @@ class UserProfile(models.Model):
     def follow(self, profile):
         Follow.objects.get_or_create(follower=self, following=profile)
 
+    def like_post(self, post):
+      post.like(self.user)
+
+    def unlike_post(self, post):
+      post.unlike(self.user)
+
     
 class Follow(models.Model):
     follower = models.ForeignKey(UserProfile, verbose_name='¿Quien sigue?', on_delete=models.CASCADE, related_name='follower_set')
