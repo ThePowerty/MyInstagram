@@ -36,5 +36,8 @@ class Comment(models.Model):
         verbose_name_plural = 'Comentarios'
         ordering = ['-created_at']
 
+    def time_since_created(self):
+        return "Hace " + timesince(self.created_at)
+
     def __str__(self):
         return f"Comentó {self.user.username} el post {self.post}"

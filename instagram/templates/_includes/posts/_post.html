@@ -2,7 +2,8 @@
   <div class="bg-white border mt-2">
   <div>
       <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
-          <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="{{ post.user.profile.profile_picture.url }}" width="45">
+          <div class="d-flex flex-row align-items-center feed-text px-2">
+            <img class="img-fluid rounded-circle me-3" src="{% if post.user.profile.profile_picture %}{{ post.user.profile.profile_picture.url }}{% endif %}" width="45">
             <div class="d-flex flex-column flex-wrap ml-2">
               <span class="fw-bold fs-4">{{ post.user.username }}</span>
               <span class="text-black-50 time">{{ post.time_since_created }}</span>
@@ -11,20 +12,21 @@
       </div>
   </div>
   <div class="feed-image p-2 px-3">
-    <img class="img-fluid img-responsive" src="{{ post.image.url }}">
+    <img class="img-fluid img-thumbnail" src="{{ post.image.url }}">
     <p>{{ post.caption }}</p>
-    <p class="text-center mt-3 mb-3">
-      <a class="btn btn-primary btn-sm" role="button" href="{% url 'post_detail' post.pk %}">Ver post</a>
-    </p>
   </div>
   <div class="ms-3 mb-2">
     <a href="{% url 'post_like' post.pk %}" class="likeButton">
-      <span>{{ post.likes.all.count }}</span>
+      <span>{{ post.likes.all.count }} Me gusta</span>
       {% if request.user in post.likes.all %}
-        <i class="bi bi-suit-heart-fill"></i>
+      <i class="bi bi-suit-heart-fill"></i>
       {% else %}
-        <i class="bi bi-heart"></i>
+      <i class="bi bi-heart"></i>
       {% endif %}
     </a>
+    <p> Comentarios: {{post.comments.all.count}} </p>
+  </div>
+  <div class="text-center mt-3 mb-3">
+    <a class="btn btn-primary btn-sm" role="button" href="{% url 'post_detail' post.pk %}">Ver post</a>
   </div>
 </article>
