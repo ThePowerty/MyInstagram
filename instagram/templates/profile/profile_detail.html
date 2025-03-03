@@ -22,7 +22,7 @@
   </p>
   <p>Seguidos: {{ profile.followers.count }}</p>
   {% if profile.user == request.user %}
-    <p><a href="{% url 'profile_update' profile.pk %}" class="btn btn-secondary">Editar</a></p>
+    <p><a href="{% url 'profile:update' profile.pk %}" class="btn btn-secondary">Editar</a></p>
   {% endif %}
   {% if profile.user != request.user %}
     <form method="post">

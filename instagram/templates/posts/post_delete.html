@@ -1,0 +1,18 @@
+{% extends "general/layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}Nueva publicación{% endblock %}
+
+{% block page_content %}
+<div class="container">
+  {% include '_includes/_messages.html' %}
+
+  <h2>¿Eliminar Post?</h2>
+  <form action="" method="POST">
+    {% csrf_token %} 
+    {{ form }}
+    <button class="btn btn-warning">Eliminar</button>
+    <a href="{% url 'profile:detail' post.user.profile.pk %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

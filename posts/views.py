@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from posts.models import Post
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -38,7 +38,14 @@ class PostDetailView(DetailView, CreateView):
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS, "Comentario añadido correctamente.")
-        return reverse('post_detail', args=[self.get_object().pk])
+        return reverse('post:detail', args=[self.get_object().pk])
+    
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = "posts/post_delete.html"
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS, "Post eliminado correctamente.")
+        return reverse('profile:detail', args=[self.get_object().pk])
 
 
 @login_required

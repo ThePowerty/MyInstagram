@@ -20,7 +20,7 @@
       </p>
       <p>{{ profile.bio|default_if_none:"Sin rellenar" }}</p>
       <p>Seguidos: {{ profile.followers.count }}</p>
-      <p><a href="{% url 'profile_detail' profile.pk %}" class="btn btn-secondary">Ver perfil</a></p>
+      <p><a href="{% url 'profile:detail' profile.pk %}" class="btn btn-secondary">Ver perfil</a></p>
     </article>
     {% endfor %}
   </div>

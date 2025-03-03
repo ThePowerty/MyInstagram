@@ -8,7 +8,7 @@
           <li class="nav-item">
             <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Inicio</a>
           </li>
-          {% url 'profile_list' as profiles_url %}
+          {% url 'profile:list' as profiles_url %}
           <li class="nav-item">
             <a class="nav-link {% if request.path == profiles_url %}active{% endif %}" href="{{ profiles_url }}">Perfiles</a>
           </li>
@@ -27,11 +27,11 @@
             </li>
           {% endif %}
           {% if request.user.is_authenticated %}
-            {% url 'post_create' as post_url %}
+            {% url 'post:create' as post_url %}
             <li class="nav-item">
               <a class="nav-link {% if request.path == post_url %}active{% endif %}" href="{{ post_url }}">Publicar</a>
             </li>
-            {% url 'profile_detail' request.user.profile.pk as profile_url %}
+            {% url 'profile:detail' request.user.profile.pk as profile_url %}
             <li class="nav-item">
               <a class="nav-link {% if request.path == profile_url %}active{% endif %}" href="{{ profile_url }}">Mi perfil</a>
             </li>
