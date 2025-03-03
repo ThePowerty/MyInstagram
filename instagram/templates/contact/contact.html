@@ -1,0 +1,19 @@
+{% extends "general/layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}Bienvenido a nuestro InstaConquer{% endblock %}
+
+{% block page_content %}
+<div class="container">
+  {% include '_includes/_messages.html' %}
+
+  <h1>Contacto</h1>
+  <form action="" method="POST">
+    {% csrf_token %} 
+    {{ form.nombre|as_crispy_field }}
+    {{ form.email|as_crispy_field }}
+    {{ form.comentario|as_crispy_field }}
+  <button class="btn btn-lg btn-primary">Enviar</button>
+  </form>
+</div>
+{% endblock %}

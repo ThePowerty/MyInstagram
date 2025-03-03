@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'profiles',
     'posts',
     'notifications',
+    'contact',
 
 ]
 
@@ -121,3 +122,22 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_URL= reverse_lazy('login')
+
+import environ
+import os
+
+env = environ.Env(
+    
+)
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+HOST = env('HOST')
+EMAIL = env('EMAIL')
+PASSWD = env('PASSWD')
+
+
+EMAIL_HOST=HOST
+EMAIL_PORT=587
+EMAIL_HOST_USER=EMAIL
+EMAIL_HOST_PASSWORD=PASSWD
+EMAIL_USE_TLS=True

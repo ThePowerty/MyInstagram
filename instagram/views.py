@@ -1,6 +1,5 @@
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic.edit import FormView
@@ -11,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm
 from posts.models import Post
 from profiles.models import Follow
-
 
 class HomeView(TemplateView):
     template_name = "general/home.html"
@@ -62,9 +60,6 @@ class RegisterView(CreateView):
 class LegalView(TemplateView):
     template_name = "general/legal.html"
 
-
-class ContactView(TemplateView):
-    template_name = "general/contact.html"
 
 login_required
 def logout_view(request):

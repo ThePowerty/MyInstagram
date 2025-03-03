@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import HomeView, LoginView, LegalView, RegisterView, ContactView, logout_view
+from .views import HomeView, LoginView, LegalView, RegisterView, logout_view
+from contact.views import ContactView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
