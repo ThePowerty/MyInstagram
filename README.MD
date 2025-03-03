@@ -32,11 +32,6 @@ Para instalar el proyecto, sigue estos pasos:
     ```bash
     pip3 install -r requirements.txt
     ```
-
-5. Añadimos datos de prueba
-    ```bash
-    python manage.p shell < create_data.py
-    ```
 ---
 
 # Requisitos
